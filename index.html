@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUALIS | The Length Retention System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+        :root {
+            --color-cream: #FAF9F6;
+            --color-sage: #9EB2A8;
+            --color-sage-light: #F2F5F4;
+            --color-forest: #2A3B34;
+            --color-gold: #C8A873;
+            --color-sand: #F5F2EB;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--color-cream);
+            color: var(--color-forest);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .editorial-italic {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Smooth Anchor Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Accordion Transition */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Button Hover Effects */
+        .btn-primary {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(42, 59, 52, 0.2);
+        }
+
+        /* Grain overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+        /* Custom Radio Styles */
+        .radio-custom:checked + div {
+             border-color: #2A3B34;
+             background-color: #F2F5F4;
+        }
+        .radio-custom:checked + div .radio-dot {
+            background-color: #2A3B34;
+            border-color: #2A3B34;
+        }
+        .radio-custom:checked + div .radio-dot::after {
+            opacity: 1;
+        }
+
+        .radio-dot {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #9CA3AF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .radio-dot::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+    </style>
+</head>
+<body class="antialiased text-[#2A3B34]">
+
+    <!-- Grain Texture Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Announcement Bar -->
+    <div class="bg-[#2A3B34] text-white text-xs text-center py-2.5 tracking-widest uppercase font-medium">
+        <span>Free shipping on your first order</span>
+        <span class="mx-2 opacity-50">|</span>
+        <span>Join the waitlist for Vol. 2</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#FAF9F6]/90 backdrop-blur-md border-b border-[#E5E7EB]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-serif text-3xl font-bold tracking-tight text-[#2A3B34]">DUALIS</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-10 text-xs font-bold uppercase tracking-widest text-[#2A3B34]">
+                    <a href="#hero" class="hover:text-[#9EB2A8] transition relative group">Shop</a>
+                    <a href="#method" class="hover:text-[#9EB2A8] transition relative group">Our Method</a>
+                    <a href="#reviews" class="hover:text-[#9EB2A8] transition relative group">Reviews</a>
+                    <a href="#faq" class="hover:text-[#9EB2A8] transition relative group">FAQ</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="text-[#2A3B34] focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO -->
+    <section id="hero" class="relative pt-8 pb-12 md:pt-16 md:pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+                <!-- LEFT COLUMN: Product Gallery (Col Span 7) -->
+                <div class="lg:col-span-7">
+                    <div class="sticky top-28">
+                        <!-- Main Image -->
+                        <div class="relative bg-[#F2F5F4] aspect-[4/5] md:aspect-square lg:aspect-[4/3] rounded-sm overflow-hidden mb-4 group shadow-sm">
+                            <!-- Badge -->
+                            <div class="absolute top-6 right-6 z-10 w-24 h-24 bg-[#2A3B34] rounded-full flex items-center justify-center text-center p-2 transform rotate-12 shadow-2xl transition hover:rotate-0 hover:scale-105 duration-300">
+                                <div class="text-[#FAF9F6] text-[10px] font-bold leading-tight uppercase tracking-widest border border-[#FAF9F6]/30 rounded-full w-full h-full flex items-center justify-center flex-col">
+                                    <span>Length<br>Retention</span>
+                                    <span class="text-[#C8A873] text-sm my-1">★</span>
+                                    <span>Award<br>Winner</span>
+                                </div>
+                            </div>
+
+                            <!-- HERO IMAGE: Model with bottles -->
+                            <img id="main-product-image" src="images/product-hero-model.png" alt="DUALIS System" class="object-cover w-full h-full group-hover:scale-105 transition duration-[1.5s] ease-in-out">
+                        </div>
+
+                        <!-- Thumbnails -->
+                        <div class="grid grid-cols-5 gap-3">
+                            <!-- Thumb 1: Shelfie -->
+                            <button class="aspect-square bg-[#F2F5F4] border border-[#2A3B34] rounded-sm overflow-hidden p-0 relative transition hover:opacity-80" onclick="changeMainImage('images/product-shelfie.png')">
+                                <img src="images/product-shelfie.png" class="object-cover w-full h-full">
+                            </button>
+                            <!-- Thumb 2: Counter/Morning -->
+                            <button class="aspect-square bg-[#F2F5F4] border border-transparent hover:border-[#9EB2A8] rounded-sm overflow-hidden relative transition" onclick="changeMainImage('images/product-counter.png')">
+                                <img src="images/product-counter.png" class="object-cover w-full h-full">
+                            </button>
+                            <!-- Thumb 3: Shower Steam -->
+                            <button class="aspect-square bg-[#F2F5F4] border border-transparent hover:border-[#9EB2A8] rounded-sm overflow-hidden transition" onclick="changeMainImage('images/product-shower.png')">
+                                <img src="images/product-shower.png" class="object-cover w-full h-full">
+                            </button>
+                            <!-- Thumb 4: In-Use POV -->
+                            <button class="aspect-square bg-[#F2F5F4] border border-transparent hover:border-[#9EB2A8] rounded-sm overflow-hidden transition" onclick="changeMainImage('images/product-in-use.png')">
+                                <img src="images/product-in-use.png" class="object-cover w-full h-full">
+                            </button>
+                            <!-- Thumb 5: Founder -->
+                            <button class="aspect-square bg-[#F5F2EB] border border-transparent hover:border-[#9EB2A8] rounded-sm overflow-hidden relative group transition" onclick="changeMainImage('images/founder-hero.png')">
+                                <img src="images/founder-hero.png" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition">
+                                <div class="absolute bottom-0 inset-x-0 bg-black/50 text-[8px] text-white text-center py-1 uppercase tracking-widest">Founder</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Details & Purchase (Col Span 5) -->
+                <div class="lg:col-span-5 flex flex-col h-full pt-4">
+
+                    <!-- Header Info -->
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9EB2A8] bg-[#F2F5F4] px-2 py-1 rounded-full">Growth + Retention</span>
+                            <div class="flex items-center gap-1.5">
+                                <div class="text-[#2A3B34] text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-xs text-gray-400 font-medium underline decoration-gray-300 underline-offset-2">12,720 Reviews</span>
+                            </div>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-serif text-[#2A3B34] leading-[1.1] mb-4">
+                            The Length <span class="editorial-italic block">Retention System</span>
+                        </h1>
+                        <p class="text-gray-600 text-base leading-relaxed font-light">
+                            Finally grow past your plateau. The revolutionary two-shampoo method that balances sulfate-free protection with strategic cleansing.
+                        </p>
+                    </div>
+
+                    <!-- Purchase Options Widget -->
+                    <div class="space-y-4 mb-8">
+                        <!-- Subscribe Option ($39) -->
+                        <label class="block relative cursor-pointer group">
+                            <input type="radio" name="purchase_type" value="sub" class="radio-custom sr-only" checked onchange="updatePrice('sub')">
+                            <div class="border border-[#9EB2A8] bg-[#F2F5F4] rounded-lg p-5 transition-all shadow-md group-hover:border-[#2A3B34]">
+                                <!-- Discount Badge -->
+                                <div class="absolute -top-3 right-4 bg-[#C8A873] text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full shadow-sm">
+                                    Save $20
+                                </div>
+
+                                <div class="flex items-start">
+                                    <div class="radio-dot mt-1 flex-shrink-0"></div>
+                                    <div class="ml-4 w-full">
+                                        <div class="flex justify-between w-full items-baseline">
+                                            <span class="font-bold text-[#2A3B34] text-lg font-serif italic">Subscribe & Save</span>
+                                            <div class="text-right">
+                                                <span class="block font-bold text-[#2A3B34] text-lg">$39.00</span>
+                                                <span class="text-[#9EB2A8] text-xs line-through font-medium">$59.00</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-3 space-y-1.5 border-t border-[#9EB2A8]/30 pt-3">
+                                            <p class="text-xs text-[#5C6B66] flex items-center"><i class="fas fa-check-circle text-[#9EB2A8] mr-2 text-xs"></i> Best value (Save 34%)</p>
+                                            <p class="text-xs text-[#5C6B66] flex items-center"><i class="fas fa-sync-alt text-[#9EB2A8] mr-2 text-xs"></i> Ships every 4 weeks</p>
+                                            <p class="text-xs text-[#5C6B66] flex items-center"><i class="fas fa-unlock text-[#9EB2A8] mr-2 text-xs"></i> Pause or cancel anytime</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+                        <!-- One-Time Option ($59) -->
+                        <label class="block relative cursor-pointer group">
+                            <input type="radio" name="purchase_type" value="once" class="radio-custom sr-only" onchange="updatePrice('once')">
+                            <div class="border border-gray-200 bg-white rounded-lg p-5 transition-all opacity-70 hover:opacity-100 hover:border-[#2A3B34]">
+                                <div class="flex items-center">
+                                    <div class="radio-dot flex-shrink-0"></div>
+                                    <div class="ml-4 w-full flex justify-between items-center">
+                                        <span class="font-medium text-gray-700">One-Time Purchase</span>
+                                        <span class="font-medium text-gray-900">$59.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- ATC Row -->
+                    <div class="flex gap-4 mb-8">
+                        <button onclick="addToCart()" class="btn-primary flex-1 bg-[#2A3B34] text-[#FAF9F6] font-bold uppercase tracking-widest text-xs py-4 px-6 rounded-full hover:bg-black transition shadow-xl flex items-center justify-center gap-3">
+                            <span>Add to Cart</span>
+                            <span class="w-1 h-1 bg-[#9EB2A8] rounded-full"></span>
+                            <span id="atc-price">$39.00</span>
+                        </button>
+                    </div>
+
+                    <!-- Accordions -->
+                    <div class="border-t border-gray-100">
+                        <details class="group py-4 border-b border-gray-100 cursor-pointer">
+                            <summary class="flex justify-between items-center text-sm font-bold text-[#2A3B34] group-hover:text-[#9EB2A8] transition uppercase tracking-wide">
+                                <div class="flex items-center gap-3">
+                                    What's in the set?
+                                </div>
+                                <span class="text-gray-400 group-open:rotate-180 transition duration-300"><i class="fas fa-plus font-light text-xs"></i></span>
+                            </summary>
+                            <p class="text-sm text-gray-600 mt-3 leading-relaxed font-light">
+                                You receive one bottle of Daily Gentle (100ml concentrate) and one bottle of Weekly Reset (100ml concentrate). Because our formulas are concentrated, this set typically lasts 4-6 weeks depending on hair length.
+                            </p>
+                        </details>
+
+                        <details class="group py-4 border-b border-gray-100 cursor-pointer">
+                            <summary class="flex justify-between items-center text-sm font-bold text-[#2A3B34] group-hover:text-[#9EB2A8] transition uppercase tracking-wide">
+                                <div class="flex items-center gap-3">
+                                    Safe for color-treated hair?
+                                </div>
+                                <span class="text-gray-400 group-open:rotate-180 transition duration-300"><i class="fas fa-plus font-light text-xs"></i></span>
+                            </summary>
+                            <p class="text-sm text-gray-600 mt-3 leading-relaxed font-light">
+                                Yes. The Daily Gentle shampoo is 100% sulfate-free to protect color. The Weekly Reset contains sulfates but is only used 4x per month, which minimizes color fade compared to standard daily shampoos.
+                            </p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: TRUST MARQUEE -->
+    <section class="bg-[#F5F2EB] py-5 overflow-hidden border-y border-[#E5E7EB]">
+        <div class="marquee-container">
+            <div class="marquee-content text-sm md:text-base font-medium tracking-widest uppercase text-[#2A3B34]">
+                <span class="mx-8"><i class="fas fa-tint text-[#9EB2A8] mr-2"></i> Silicone-Free</span>
+                <span class="mx-8"><i class="fas fa-star text-[#9EB2A8] mr-2"></i> 12,000+ Journeys</span>
+                <span class="mx-8"><i class="fas fa-leaf text-[#9EB2A8] mr-2"></i> Vegan</span>
+                <span class="mx-8"><i class="fas fa-ban text-[#9EB2A8] mr-2"></i> No Parabens</span>
+                <span class="mx-8"><i class="fas fa-paw text-[#9EB2A8] mr-2"></i> Cruelty-Free</span>
+                <span class="mx-8"><i class="fas fa-clock text-[#9EB2A8] mr-2"></i> 60-Day Returns</span>
+                <!-- Duplicate for loop -->
+                <span class="mx-8"><i class="fas fa-tint text-[#9EB2A8] mr-2"></i> Silicone-Free</span>
+                <span class="mx-8"><i class="fas fa-star text-[#9EB2A8] mr-2"></i> 12,000+ Journeys</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE PROBLEM -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-serif text-[#2A3B34] mb-4">Why Your Hair Won't Grow <span class="editorial-italic block mt-2 text-[#9EB2A8]">Past Your Shoulders</span></h2>
+            <p class="text-gray-500 mb-16 italic text-lg font-light">(It's not your genetics. It's your products.)</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 relative">
+                <!-- Connecting lines for desktop -->
+                <div class="hidden md:block absolute top-12 left-[16%] right-[16%] h-[1px] bg-gray-200 -z-10 dashed-line"></div>
+
+                <!-- Step 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition duration-300">
+                    <div class="w-16 h-16 mx-auto bg-[#F2F5F4] rounded-full flex items-center justify-center mb-6 text-2xl text-[#2A3B34]">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="font-serif italic font-bold text-xl mb-3">Silicone Buildup</h3>
+                    <p class="text-sm text-gray-600 font-light leading-relaxed">Regular conditioners coat your hair in silicones that accumulate over time.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition duration-300">
+                    <div class="w-16 h-16 mx-auto bg-[#FFF5F5] rounded-full flex items-center justify-center mb-6 text-2xl text-red-400">
+                        <i class="fas fa-soap"></i>
+                    </div>
+                    <h3 class="font-serif italic font-bold text-xl mb-3">Sulfate Stripping</h3>
+                    <p class="text-sm text-gray-600 font-light leading-relaxed">To remove that buildup, you need sulfates. But sulfates damage the hair you're trying to grow.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition duration-300">
+                    <div class="w-16 h-16 mx-auto bg-[#F2F5F4] rounded-full flex items-center justify-center mb-6 text-2xl text-[#2A3B34]">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3 class="font-serif italic font-bold text-xl mb-3">The Breakage Cycle</h3>
+                    <p class="text-sm text-gray-600 font-light leading-relaxed">Your hair grows 6" per year. You break off 6" at the ends. Net growth: zero.</p>
+                </div>
+            </div>
+
+             <!-- The Trap Diagram Box -->
+            <div class="border border-[#2A3B34] bg-[#F5F2EB] rounded-2xl p-10 max-w-3xl mx-auto relative overflow-hidden">
+                <!-- Decorative element -->
+                <div class="absolute top-0 right-0 w-20 h-20 bg-[#C8A873]/10 rounded-bl-full"></div>
+
+                <span class="text-xs font-bold tracking-[0.2em] text-[#2A3B34] uppercase mb-6 block bg-white inline-block px-3 py-1 rounded">The Trap</span>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm font-medium text-[#2A3B34]">
+                    <span class="bg-white px-4 py-2 rounded shadow-sm">Silicone Buildup</span>
+                    <i class="fas fa-arrow-right hidden md:block text-[#9EB2A8]"></i>
+                    <i class="fas fa-arrow-down md:hidden text-[#9EB2A8]"></i>
+                    <span class="bg-white px-4 py-2 rounded shadow-sm">Harsh Sulfates</span>
+                    <i class="fas fa-arrow-right hidden md:block text-[#9EB2A8]"></i>
+                    <i class="fas fa-arrow-down md:hidden text-[#9EB2A8]"></i>
+                    <span class="bg-white px-4 py-2 rounded shadow-sm">Damage</span>
+                    <i class="fas fa-arrow-right hidden md:block text-[#9EB2A8]"></i>
+                    <i class="fas fa-arrow-down md:hidden text-[#9EB2A8]"></i>
+                    <span class="text-red-500 font-bold border border-red-200 bg-red-50 px-4 py-2 rounded">No Length</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISUAL BREAK: MOOD BANNER -->
+    <section class="h-[60vh] md:h-[80vh] relative overflow-hidden flex items-center justify-center">
+        <!-- Full-width lifestyle/mood shot -->
+        <img src="images/mood-hair-movement.png" class="absolute inset-0 w-full h-full object-cover brightness-75 hover:brightness-100 transition duration-[2s] ease-in-out" alt="Woman with long flowing hair">
+
+        <div class="relative z-10 text-center text-[#F2F5F4] max-w-2xl px-4">
+             <h2 class="text-5xl md:text-7xl font-serif italic mb-6">Unleash Your Length</h2>
+             <p class="text-lg md:text-xl font-light tracking-wide">The hair you've always wanted is already growing.<br>You just have to keep it.</p>
+        </div>
+    </section>
+
+    <!-- SECTION: BEFORE/AFTER -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-serif mb-4 text-[#2A3B34]">Length <span class="editorial-italic">Journeys</span></h2>
+                <p class="text-lg text-gray-500 font-light">Real women. Real growth. Real hair.</p>
+            </div>
+
+            <div class="flex overflow-x-auto gap-8 pb-10 no-scrollbar md:grid md:grid-cols-3">
+                <!-- Card 1: Curly Hair UGC -->
+                <div class="min-w-[300px] md:min-w-0 bg-white rounded-none group cursor-pointer">
+                    <div class="relative h-96 overflow-hidden mb-6 rounded-lg">
+                         <img src="images/ba-curly.png" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="text-center px-4">
+                        <div class="flex justify-center items-center gap-2 mb-2">
+                            <h4 class="font-bold text-lg font-serif">Maria C.</h4>
+                            <span class="text-[#2A3B34] bg-[#F2F5F4] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">+4" in 3 mo</span>
+                        </div>
+                        <p class="text-sm text-gray-500 italic font-serif">"My curls have never been this defined AND this long!"</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Blonde Testimonial -->
+                <div class="min-w-[300px] md:min-w-0 bg-white rounded-none group cursor-pointer">
+                    <div class="relative h-96 overflow-hidden mb-6 rounded-lg">
+                         <img src="images/ba-blonde.png" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="text-center px-4">
+                        <div class="flex justify-center items-center gap-2 mb-2">
+                            <h4 class="font-bold text-lg font-serif">Jessica T.</h4>
+                            <span class="text-[#2A3B34] bg-[#F2F5F4] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">+5" in 90 days</span>
+                        </div>
+                        <p class="text-sm text-gray-500 italic font-serif">"Finally got past bra strap length. The weekly reset is magic."</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Ponytail Comparison -->
+                <div class="min-w-[300px] md:min-w-0 bg-white rounded-none group cursor-pointer">
+                    <div class="relative h-96 overflow-hidden mb-6 rounded-lg">
+                         <img src="images/ba-ponytail.png" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="text-center px-4">
+                        <div class="flex justify-center items-center gap-2 mb-2">
+                            <h4 class="font-bold text-lg font-serif">Priya K.</h4>
+                            <span class="text-[#2A3B34] bg-[#F2F5F4] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">+3.5" in 12 wks</span>
+                        </div>
+                        <p class="text-sm text-gray-500 italic font-serif">"My ponytail is literally twice as thick now."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center mt-6 md:hidden">
+                 <div class="flex space-x-2">
+                     <div class="w-2 h-2 bg-[#2A3B34] rounded-full"></div>
+                     <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                     <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: THE SOLUTION -->
+    <section id="method" class="py-20 md:py-32 bg-[#F2F5F4]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-serif text-[#2A3B34] mb-4">The DUALIS <span class="editorial-italic">Method</span></h2>
+                <p class="text-xl text-gray-600 font-light">Two products. One system. Finally, length.</p>
+            </div>
+
+            <!-- System Infographic -->
+            <div class="mb-16">
+                <img src="images/infographic-system.png" alt="The Two-Shampoo Method" class="w-full max-w-4xl mx-auto rounded-2xl shadow-lg">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+                <!-- Daily Product -->
+                <div class="bg-white p-10 rounded-3xl shadow-lg border border-white hover:border-[#9EB2A8] transition duration-500">
+                    <div class="bg-[#F9F8F4] rounded-2xl aspect-[4/3] mb-8 overflow-hidden relative">
+                         <!-- TODO: Need individual Daily bottle shot -->
+                         <img src="images/product-counter.png" alt="Daily Gentle Shampoo" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+                         <div class="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-xs font-bold tracking-widest text-[#2A3B34]">STEP 1</div>
+                    </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-3xl font-serif text-[#2A3B34]">Daily Gentle</h3>
+                        <span class="bg-[#F2F5F4] text-[#2A3B34] text-[10px] font-bold px-3 py-1.5 rounded-full tracking-wider uppercase">Sulfate-Free</span>
+                    </div>
+                    <p class="text-gray-600 mb-6 font-light leading-relaxed">Protects your hair the other 6 days. No sulfates = no stripping = length retained.</p>
+                </div>
+
+                <!-- Weekly Product -->
+                <div class="bg-[#2A3B34] p-10 rounded-3xl shadow-xl text-white relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#C8A873] rounded-bl-full opacity-20 group-hover:opacity-30 transition"></div>
+
+                    <div class="bg-white/5 rounded-2xl aspect-[4/3] mb-8 overflow-hidden relative backdrop-blur-sm border border-white/10">
+                        <!-- TODO: Need individual Weekly bottle shot -->
+                        <img src="images/product-shower.png" alt="Weekly Reset Shampoo" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-700">
+                        <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs font-bold tracking-widest text-white">STEP 2</div>
+                    </div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-3xl font-serif text-white">Weekly Reset</h3>
+                        <span class="bg-[#C8A873] text-[#2A3B34] text-[10px] font-bold px-3 py-1.5 rounded-full tracking-wider uppercase">Key to Growth</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 font-light leading-relaxed">The only way to truly remove silicone buildup is with sulfates. Once a week = maximum clean, minimum damage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: MEET THE FOUNDER -->
+    <section class="bg-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+                <!-- Founder Image Side -->
+                <div class="relative order-2 md:order-1">
+                    <div class="aspect-[3/4] rounded-sm overflow-hidden relative shadow-2xl">
+                         <!-- Founder shot (ends with 9f) -->
+                        <img src="images/founder-hero.png" class="w-full h-full object-cover" alt="Founder holding DUALIS bottles">
+                    </div>
+                    <!-- Decorative signature/quote element -->
+                    <div class="absolute -bottom-8 -right-8 bg-[#F5F2EB] p-8 max-w-xs shadow-lg hidden md:block">
+                        <p class="font-serif italic text-xl text-[#2A3B34] leading-tight">"I didn't need better genetics. I just needed to stop breaking my hair."</p>
+                    </div>
+                </div>
+
+                <!-- Text Side -->
+                <div class="order-1 md:order-2">
+                    <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9EB2A8] mb-4 block">Our Story</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-[#2A3B34] mb-8">Why I Created <span class="editorial-italic">DUALIS</span></h2>
+
+                    <div class="space-y-6 text-gray-600 font-light leading-relaxed">
+                        <p>
+                            Like you, I spent years stuck at "shoulder length." I bought every vitamin, every serum, and every mask. I thought my hair just couldn't grow.
+                        </p>
+                        <p>
+                            Then I met a trichologist who told me something that changed everything: <strong>"Your hair is growing. You're just breaking it as fast as you make it."</strong>
+                        </p>
+                        <p>
+                            The culprit was my routine. My "gentle" shampoos weren't removing silicone buildup, and my clarifying shampoos were too harsh for daily use. I needed a system that did both.
+                        </p>
+                        <p>
+                            DUALIS isn't magic. It's just the correct chemistry for length retention. And it's the only reason my hair is now down to my waist.
+                        </p>
+                        <div class="pt-4">
+                            <span class="font-serif italic text-2xl text-[#2A3B34]">- Elena, Founder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CLINICAL STATS -->
+    <section class="py-20 bg-[#2A3B34] text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-serif mb-3">Real <span class="editorial-italic">Results</span></h2>
+            <p class="text-[#9EB2A8] mb-16 font-light tracking-wide">From a 12-week study of 847 women with length plateaus*</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm">
+                    <div class="text-6xl font-serif text-[#C8A873] mb-4 italic">87%</div>
+                    <p class="text-xs font-bold tracking-[0.2em] uppercase text-gray-300">Noticed Less Breakage<br>In First Month</p>
+                </div>
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm transform scale-105 shadow-2xl">
+                    <div class="text-6xl font-serif text-[#C8A873] mb-4 italic">3.2"</div>
+                    <p class="text-xs font-bold tracking-[0.2em] uppercase text-gray-300">Average Length Gained<br>In 12 Weeks</p>
+                </div>
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm">
+                    <div class="text-6xl font-serif text-[#C8A873] mb-4 italic">94%</div>
+                    <p class="text-xs font-bold tracking-[0.2em] uppercase text-gray-300">Would Recommend<br>To A Friend</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: COMPARISON TABLE -->
+    <section class="py-20 bg-white border-y border-gray-100">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#9EB2A8] mb-2 block">The Difference</span>
+                <h2 class="text-3xl md:text-4xl font-serif text-[#2A3B34]">Why DUALIS <span class="editorial-italic">Works</span></h2>
+                <p class="text-gray-400 mt-2 font-light">(When other products haven't)</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-4 text-gray-400 font-light uppercase tracking-wider text-xs border-b border-gray-100">Feature</th>
+                            <th class="px-6 py-4 bg-[#F2F5F4] text-[#2A3B34] font-bold border-t-4 border-t-[#2A3B34] text-center w-1/4">DUALIS System</th>
+                            <th class="px-6 py-4 text-gray-400 font-light text-center w-1/4 border-b border-gray-100">Regular Shampoo</th>
+                            <th class="px-6 py-4 text-gray-400 font-light text-center w-1/4 border-b border-gray-100">Growth Serums</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="px-6 py-5 font-bold text-[#2A3B34]">Prevents Breakage</td>
+                            <td class="px-6 py-5 bg-[#F2F5F4] text-[#2A3B34] font-bold text-center"><i class="fas fa-check text-[#C8A873]"></i> Yes</td>
+                            <td class="px-6 py-5 text-gray-300 text-center"><i class="fas fa-times"></i></td>
+                            <td class="px-6 py-5 text-gray-400 text-center">~ Partial</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-5 font-bold text-[#2A3B34]">Removes Buildup Safely</td>
+                            <td class="px-6 py-5 bg-[#F2F5F4] text-[#2A3B34] font-bold text-center"><i class="fas fa-check text-[#C8A873]"></i> Yes</td>
+                            <td class="px-6 py-5 text-gray-300 text-center"><i class="fas fa-times"></i></td>
+                            <td class="px-6 py-5 text-gray-300 text-center"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-5 font-bold text-[#2A3B34]">Strategic Sulfates</td>
+                            <td class="px-6 py-5 bg-[#F2F5F4] text-[#2A3B34] font-bold text-center"><i class="fas fa-check text-[#C8A873]"></i> Yes</td>
+                            <td class="px-6 py-5 text-gray-300 text-center"><i class="fas fa-times"></i></td>
+                            <td class="px-6 py-5 text-gray-200 text-center">N/A</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-5 font-bold text-[#2A3B34]">Complete System</td>
+                            <td class="px-6 py-5 bg-[#F2F5F4] text-[#2A3B34] font-bold text-center"><i class="fas fa-check text-[#C8A873]"></i> Yes</td>
+                            <td class="px-6 py-5 text-gray-300 text-center"><i class="fas fa-times"></i></td>
+                            <td class="px-6 py-5 text-gray-300 text-center"><i class="fas fa-times"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-5 font-bold text-[#2A3B34]">Addresses Root Cause</td>
+                            <td class="px-6 py-5 bg-[#F2F5F4] text-[#2A3B34] font-bold text-center rounded-b-lg"><i class="fas fa-check text-[#C8A873]"></i> Yes</td>
+                            <td class="px-6 py-5 text-gray-300 text-center"><i class="fas fa-times"></i></td>
+                            <td class="px-6 py-5 text-gray-400 text-center">~ Partial</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: DETAILED REVIEWS -->
+    <section id="reviews" class="py-20 md:py-32 bg-[#F5F2EB]">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+                <h2 class="text-3xl font-serif text-[#2A3B34]">Customer <span class="editorial-italic">Reviews</span></h2>
+                <div class="flex items-center gap-2 mt-4 md:mt-0">
+                    <span class="text-[#C8A873] text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    <span class="font-bold text-[#2A3B34]">4.9 out of 5</span>
+                    <span class="text-gray-400 font-light text-sm">(2,847 reviews)</span>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex gap-3 mb-12 overflow-x-auto no-scrollbar pb-2">
+                <button class="px-5 py-2 bg-[#2A3B34] text-white rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap shadow-lg">All Reviews</button>
+                <button class="px-5 py-2 border border-[#9EB2A8] text-[#2A3B34] rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap hover:bg-white transition">With Photos</button>
+                <button class="px-5 py-2 border border-[#9EB2A8] text-[#2A3B34] rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap hover:bg-white transition">Length Results</button>
+                <button class="px-5 py-2 border border-[#9EB2A8] text-[#2A3B34] rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap hover:bg-white transition">Extension Quitters</button>
+            </div>
+
+            <!-- Review List -->
+            <div class="grid gap-6">
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-transparent hover:border-[#9EB2A8]/30 transition">
+                    <div class="flex justify-between mb-4 items-center">
+                        <div class="flex gap-1 text-[#C8A873] text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <span class="text-[10px] uppercase tracking-widest text-[#9EB2A8] font-bold"><i class="fas fa-check-circle mr-1"></i> Verified Purchase</span>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl mb-3 text-[#2A3B34]">Finally past my shoulders!</h3>
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed font-light">"I've been stuck at shoulder length for YEARS. Tried everything - biotin, growth serums, expensive salon treatments. 4 months with DUALIS and I'm officially at bra strap length. The two-shampoo thing seemed weird at first but now it makes so much sense."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-100 pt-4">
+                        <div class="w-10 h-10 bg-[#F2F5F4] rounded-full flex items-center justify-center text-[#2A3B34] font-serif italic">AR</div>
+                        <div>
+                            <div class="text-xs font-bold text-[#2A3B34] uppercase tracking-wide">Amanda R.</div>
+                            <div class="text-[10px] text-gray-400">Using DUALIS for 4 months</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-transparent hover:border-[#9EB2A8]/30 transition">
+                    <div class="flex justify-between mb-4 items-center">
+                        <div class="flex gap-1 text-[#C8A873] text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <span class="text-[10px] uppercase tracking-widest text-[#9EB2A8] font-bold"><i class="fas fa-check-circle mr-1"></i> Verified Purchase</span>
+                    </div>
+                    <h3 class="font-serif font-bold text-xl mb-3 text-[#2A3B34]">Ditched my extensions</h3>
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed font-light">"I was spending $3k every few months on extensions. My stylist actually recommended trying this instead. 6 months later, my natural hair is longer than my extensions ever were. I literally cannot believe it. Best investment ever."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-100 pt-4">
+                        <div class="w-10 h-10 bg-[#2A3B34] text-white rounded-full flex items-center justify-center font-serif italic">TM</div>
+                        <div>
+                            <div class="text-xs font-bold text-[#2A3B34] uppercase tracking-wide">Taylor M.</div>
+                            <div class="text-[10px] text-gray-400">Using DUALIS for 6 months</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="text-xs font-bold text-[#2A3B34] border-b border-[#2A3B34] pb-1 hover:text-[#9EB2A8] hover:border-[#9EB2A8] transition uppercase tracking-widest">Load More Reviews</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: FAQ -->
+    <section id="faq" class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-serif text-[#2A3B34]">Frequently <span class="editorial-italic">Asked</span></h2>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group bg-[#F5F2EB] rounded-xl p-6 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-[#2A3B34]">
+                        How long until I see results?
+                        <i class="fas fa-chevron-down text-[#9EB2A8] group-open:rotate-180 transition"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600 font-light">Most customers notice reduced breakage within 2-4 weeks. Visible length gains typically appear around 6-8 weeks as your hair retains more of its natural growth.</p>
+                </details>
+
+                <details class="group bg-[#F5F2EB] rounded-xl p-6 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-[#2A3B34]">
+                        Will this work on my hair type?
+                        <i class="fas fa-chevron-down text-[#9EB2A8] group-open:rotate-180 transition"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600 font-light">Yes! DUALIS works on all hair types - straight, wavy, curly, coily. The two-shampoo method addresses a universal problem: the buildup/damage cycle that affects everyone.</p>
+                </details>
+
+                <details class="group bg-[#F5F2EB] rounded-xl p-6 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-[#2A3B34]">
+                        What if it doesn't work for me?
+                        <i class="fas fa-chevron-down text-[#9EB2A8] group-open:rotate-180 transition"></i>
+                    </summary>
+                    <p class="mt-4 text-gray-600 font-light">We offer a 60-day money-back guarantee. If you don't see results, email us and we'll refund you - no questions asked.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: FINAL CTA -->
+    <section class="py-32 bg-[#2A3B34] text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-5xl md:text-7xl font-serif mb-8">Ready to Finally <span class="editorial-italic text-[#9EB2A8]">Grow?</span></h2>
+            <p class="text-xl text-[#F2F5F4] mb-12 font-light tracking-wide">Join 12,000+ women on their length journey.</p>
+
+            <button onclick="addToCart()" class="bg-[#F2F5F4] text-[#2A3B34] px-12 py-5 rounded-full font-bold text-sm uppercase tracking-[0.2em] hover:bg-white transition shadow-2xl transform hover:-translate-y-1">
+                Shop The System - $39
+            </button>
+
+            <div class="flex flex-wrap justify-center gap-8 mt-16 text-xs text-[#9EB2A8] uppercase tracking-widest">
+                <span><i class="fas fa-check mr-2"></i>60-day guarantee</span>
+                <span><i class="fas fa-check mr-2"></i>Free shipping</span>
+                <span><i class="fas fa-check mr-2"></i>Cancel anytime</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#1a2620] text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <span class="font-serif text-2xl font-bold">DUALIS</span>
+                    <p class="text-gray-400 text-sm mt-4 font-light">The length retention system.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-widest mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">The System</a></li>
+                        <li><a href="#" class="hover:text-white transition">Subscribe</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-widest mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Our Method</a></li>
+                        <li><a href="#" class="hover:text-white transition">Ingredients</a></li>
+                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-widest mb-4">Connect</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white transition">TikTok</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-xs text-gray-500">
+                <p>&copy; 2026 DUALIS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- STICKY MOBILE CTA -->
+    <div id="sticky-cta" class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 p-4 shadow-2xl transform translate-y-full transition-transform duration-300 z-50 md:hidden flex items-center justify-between">
+        <div>
+            <div class="text-[10px] font-bold text-[#9EB2A8] uppercase tracking-wider">The System</div>
+            <div class="text-sm font-bold text-[#2A3B34]" id="sticky-price">$39.00 <span class="text-xs font-normal text-gray-400 line-through">$59.00</span></div>
+        </div>
+        <button onclick="addToCart()" class="bg-[#2A3B34] text-white px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest shadow-lg">Add to Cart</button>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        const prices = {
+            sub: { current: 39.00, original: 59.00 },
+            once: { current: 59.00, original: null }
+        };
+
+        function updatePrice(type) {
+            const data = prices[type];
+            document.getElementById('atc-price').textContent = `$${data.current.toFixed(2)}`;
+
+            const subContainer = document.querySelector('input[value="sub"]').nextElementSibling;
+            const onceContainer = document.querySelector('input[value="once"]').nextElementSibling;
+
+            if(type === 'sub') {
+                subContainer.classList.remove('opacity-70');
+                subContainer.classList.add('border-[#9EB2A8]', 'bg-[#F2F5F4]');
+                onceContainer.classList.add('opacity-70', 'border-gray-200', 'bg-white');
+                onceContainer.classList.remove('border-[#2A3B34]', 'bg-[#F2F5F4]');
+            } else {
+                onceContainer.classList.remove('opacity-70', 'border-gray-200', 'bg-white');
+                onceContainer.classList.add('border-[#2A3B34]', 'bg-[#F2F5F4]');
+                subContainer.classList.add('opacity-70');
+                subContainer.classList.remove('border-[#9EB2A8]', 'bg-[#F2F5F4]');
+            }
+
+            const stickyHtml = `$${data.current.toFixed(2)} ${data.original ? `<span class="text-xs font-normal text-gray-400 line-through">$${data.original.toFixed(2)}</span>` : ''}`;
+            document.getElementById('sticky-price').innerHTML = stickyHtml;
+
+            const stickyBtn = document.querySelector('#sticky-cta button');
+            stickyBtn.textContent = type === 'sub' ? 'SUBSCRIBE' : 'ADD TO CART';
+        }
+
+        // Scroll Logic for Sticky CTA
+        const stickyCta = document.getElementById('sticky-cta');
+        const heroSection = document.getElementById('hero');
+
+        window.addEventListener('scroll', () => {
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const scrollPosition = window.scrollY;
+
+            if (scrollPosition > heroBottom) {
+                stickyCta.classList.remove('translate-y-full');
+            } else {
+                stickyCta.classList.add('translate-y-full');
+            }
+        });
+
+        function addToCart() {
+            const btns = document.querySelectorAll('button[onclick="addToCart()"]');
+            btns.forEach(btn => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<span class="flex items-center gap-2"><i class="fas fa-check"></i> Added!</span>`;
+                btn.classList.add('bg-[#9EB2A8]');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-[#9EB2A8]');
+                }, 2000);
+            });
+        }
+
+        function changeMainImage(src) {
+            document.getElementById('main-product-image').src = src;
+            // Update thumbnail borders
+            document.querySelectorAll('.grid.grid-cols-5 button').forEach(btn => {
+                btn.classList.remove('border-[#2A3B34]');
+                btn.classList.add('border-transparent');
+            });
+            event.currentTarget.classList.remove('border-transparent');
+            event.currentTarget.classList.add('border-[#2A3B34]');
+        }
+    </script>
+</body>
+</html>
